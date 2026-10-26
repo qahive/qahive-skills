@@ -25,6 +25,8 @@ This applies even if the user doesn't say "Stingerflow" or "MCP" by name — e.g
 - Never fabricate a `workspaceId` or `projectId` — always resolve via config file or explicit user input first.
 - Always inspect/fetch an existing entity first before applying updates or revisions.
 - **Defect Descriptions MUST be HTML formatted**: Stingerflow uses a rich-text editor that stores and renders HTML (`<ul>`, `<ol>`, `<li>`, `<strong>`, `<p>`, `<span>`, `<code>`). Never send raw Markdown in the `description` parameter.
+  ls when looking for something by name or partial match.
+- **Strict Project Scoping (No Cross-Project Fallback)**: All read, listing, and search operations must remain strictly scoped to the resolved `projectId`. If the active project yields 0 results (e.g., 0 open defects, 0 test cases), report 0 results directly for that project. Never search, scan, or include entities from other projects in the workspace unless the user explicitly requests across all projects or specifies another project.
 - **Strict Component Matching & Proactive Suggestion**: When resolving components, only assign existing components if they genuinely match the defect domain. If existing components are only loosely related or missing, do not force-fit; explain why in an FYI note and propose creating a new component.
 - **Do NOT Auto-Generate or Infer Tags**: Tags (`tags`) must default to an empty array `[]` unless explicitly provided or requested by the user. Never invent, hallucinate, or auto-generate tags based on domain keywords (e.g. `booking`, `payment`), environment, or feature names.
 - **Defect Title Review & Clarification via `ask_question`**: Review the defect title submitted by the user. If a clearer, more specific, or standardized defect title is suggested, use `ask_question` to let the user choose. **The options MUST always include 1 option with the user's exact original defect title**, alongside any recommended clearer title(s).
@@ -68,3 +70,9 @@ For detailed procedures, schema requirements, and workflows, consult the corresp
   - Synchronize test case automation status (`automationStatus: "automated"`) for automated scripts
   - Script-to-test-case validation and ambiguity rules
   - Step-by-step query, update, and post-update verification
+
+## Generate Access Links
+
+- **Generate Access Links**: [references/generate-access-link.md](references/generate-access-link.md)
+  - URL format and routing conventions for projects, test cases, defects, and test runs
+  - Constructing view, edit, and execution links for artifacts and reporting
