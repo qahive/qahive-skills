@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-27
+
+### Added
+- **`using-stingerflow-mcp`**: Added direct access link generation reference and updated skill instructions.
+  - Direct URL pattern resolution for Stingerflow resources (Projects, Test Suites, Test Cases, Defect reports, Test Runs).
+  - Integration guidelines for report summaries and Slack/chat notifications.
+
 ## [0.1.0] - 2026-09-14
 
 ### Added
