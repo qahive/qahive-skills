@@ -73,15 +73,41 @@ Follow this step-by-step workflow when creating a new defect:
 
 ### Step 4: Gather Missing Details & Construct Structured Description in HTML
 
-- **Mandatory Information Gathering via `ask_question`**:
+#### Step 4a: Clarify Core Defect Details via `ask_question`
+- **Mandatory Information Gathering**:
   Before constructing the HTML description and drafting the Implementation Plan, check if the user provided the necessary defect details. If any of the following 4 core items are missing or not provided in the request:
   1. **Test Data** (e.g. account credentials, order IDs, product names/SKUs, transaction numbers)
   2. **Steps to Reproduce** (exact reproduction steps)
   3. **Actual Result** (observed error, unexpected UI behavior, error logs)
   4. **Expected Result** (expected behavior per requirements)
 
-  👉 **You MUST invoke the `ask_question` tool** to ask the user for the missing details before preparing the Implementation Plan.
+  👉 **You MUST invoke the `ask_question` tool** to ask the user for the missing details before proceeding.
   👉 **CRITICAL**: Each missing item must be asked as a **separate, distinct question** in the `ask_question` call (e.g., Question 1 for Test Data, Question 2 for Steps to Reproduce, Question 3 for Actual Result, Question 4 for Expected Result). **Never bundle Steps to Reproduce, Expected Result, and Actual Result together into a single question.**
+
+#### Step 4b: Prompt for Attachments & Evidence via `ask_question`
+- Once the core defect details from Step 4a have been clarified, if the user did not provide an image, file, or URL in their initial request, **you MUST prompt for attachments as a distinct follow-up step** using `ask_question`:
+  - **Question**: *"Do you have any attachments (screenshots, log files, or screen recordings) to include with this defect?"*
+  - **Options**:
+    1. `(Recommended) Upload / paste screenshot or file in chat`
+    2. `Provide local file path (e.g., /path/to/screenshot.png or log file)`
+    3. `Provide external link (e.g., Jam, Loom, Google Drive)`
+    4. `No attachment / Skip`
+
+👉 **CRITICAL - Handling Chat Upload Selection**:
+- If the user selects `(Recommended) Upload / paste screenshot or file in chat`, **do NOT prompt with a duplicate or follow-up `ask_question`**.
+- Stop tool calling immediately and ask the user in chat text to upload or paste the screenshot/file directly.
+
+#### Step 4c: Evidence Upload & HTML Embedding Workflow
+- **When user provides a file or screenshot (chat upload or local path)**:
+  1. Execute `generating_upload_url` with the file's name (e.g. `defect-evidence.png`).
+  2. Upload the file to the returned pre-signed `uploadUrl` via HTTP PUT (`curl`) per [references/upload-artifacts.md](upload-artifacts.md).
+  3. Format the evidence in the HTML description under **Attachment & Evidence**:
+     - **Images / Screenshots**: Embed inline `<p><img src="{fullPath}" alt="{filename}" /></p>` (do NOT add a duplicate anchor text link).
+     - **Non-Image Files (Logs, Traces, Archives)**: Embed `<p><a href="{fullPath}" rel="noopener noreferrer" target="_blank">{filename}</a></p>`.
+- **When user provides an external URL (Jam / Loom / Drive)**:
+  - Embed `<p><a href="{url}" rel="noopener noreferrer" target="_blank">{url}</a></p>`.
+- **When user selects "No attachment / Skip"**:
+  - **Omit the `Attachment & Evidence` section entirely** from the HTML description.
 
 - Use the standard QA HTML format defined in [resources/defect-template.md](../resources/defect-template.md):
   - **Environment**: Environment, Browser, OS
@@ -90,7 +116,7 @@ Follow this step-by-step workflow when creating a new defect:
   - **Steps to Reproduce**: `<ol><li>...</li></ol>`
   - **Actual Result**: Observed incorrect behavior
   - **Expected Result**: Expected behavior per requirements
-  - **Attachment & Evidence**: Error logs, screenshots, API payloads
+  - **Attachment & Evidence**: (Included only when evidence was provided)
 
 ### Step 5: Create Implementation Plan and Request User Confirmation
 
@@ -183,6 +209,7 @@ Follow this workflow when modifying, reassigning, or transitioning defect status
   </ul>
   <p></p>
   ```
+- **Attachments for Revisions**: If the user reports verification results or status transitions (e.g. `open` -> `resolved` or `resolved` -> `reopen`) without providing evidence, prompt via `ask_question`: *"Do you have any verification screenshots, log files, or evidence to attach?"*. If provided, upload via `generating_upload_url` -> HTTP PUT, and append the inline `<img />` or `<a />` link to the revision notes.
 - **Explicit Rewrite**: Only completely replace the description if the user explicitly instructs a full rewrite.
 
 ### Step 4: Create Implementation Plan and Request User Confirmation

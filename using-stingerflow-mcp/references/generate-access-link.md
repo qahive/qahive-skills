@@ -14,12 +14,12 @@ https://www.stingerflow.com
 
 ## URL Patterns & Entities
 
-| Entity           | Pattern                                                                              | Identifier Used                                                     | Path Suffix / Notes                       | Example Link                                                                                                 |
-| :--------------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------ | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
-| **Main Project** | `https://www.stingerflow.com/projects/{project code}`                                | `{project code}` (e.g. `decom01`)                                   | Plural `/projects/`                       | [decom01](https://www.stingerflow.com/projects/decom01)                                                      |
-| **Test Case**    | `https://www.stingerflow.com/project/{project code}/test-cases/{testcase code}/edit` | `{project code}`, `{testcase code}` (e.g. `DECOM01-T1001`)          | Singular `/project/`, requires `/edit`    | [DECOM01-T1001](https://www.stingerflow.com/project/decom01/test-cases/DECOM01-T1001/edit)                   |
-| **Defect**       | `https://www.stingerflow.com/project/{project code}/defects/{defect Id}`             | `{project code}`, `{defect Id}` (e.g. `6ac6055d892dd26c17ea9499`)   | Singular `/project/`, defect ObjectId     | [Defect Details](https://www.stingerflow.com/project/decom01/defects/6ac6055d892dd26c17ea9499)               |
-| **Test Run**     | `https://www.stingerflow.com/project/{project code}/test-runs/{test run Id}/execute` | `{project code}`, `{test run Id}` (e.g. `6ac5d19d20cb51f698205d06`) | Singular `/project/`, requires `/execute` | [Test Run Execution](https://www.stingerflow.com/project/decom01/test-runs/6ac5d19d20cb51f698205d06/execute) |
+| Entity | Pattern | Identifier Used | Path Suffix / Notes | Example Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **Main Project** | `https://www.stingerflow.com/projects/{project code}` | `{project code}` (e.g. `decom01`) | Plural `/projects/` | [decom01](https://www.stingerflow.com/projects/decom01) |
+| **Test Case** | `https://www.stingerflow.com/project/{project code}/test-cases/{testcase code}/edit` | `{project code}`, `{testcase code}` (e.g. `DECOM01-T1001`) | Singular `/project/`, requires `/edit` | [DECOM01-T1001](https://www.stingerflow.com/project/decom01/test-cases/DECOM01-T1001/edit) |
+| **Defect** | `https://www.stingerflow.com/project/{project code}/defects/{defect Id}` | `{project code}`, `{defect Id}` (e.g. `6ac6055d892dd26c17ea9499`) | Singular `/project/`, defect ObjectId | [Defect Details](https://www.stingerflow.com/project/decom01/defects/6ac6055d892dd26c17ea9499) |
+| **Test Run** | `https://www.stingerflow.com/project/{project code}/test-runs/{test run Id}/execute` | `{project code}`, `{test run Id}` (e.g. `6ac5d19d20cb51f698205d06`) | Singular `/project/`, requires `/execute` | [Test Run Execution](https://www.stingerflow.com/project/decom01/test-runs/6ac5d19d20cb51f698205d06/execute) |
 
 ---
 

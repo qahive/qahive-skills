@@ -49,7 +49,10 @@ Use the following HTML structure when populating the `description` parameter in 
 </ul>
 <p></p>
 <p><strong>Attachment & Evidence</strong></p>
-<p><a href="[Evidence URL, e.g. Jam / Loom / Screenshot URL]" rel="noopener noreferrer" target="_blank">[Evidence URL]</a></p>
+<!-- For Screenshots / Images: Use inline img without duplicate text link -->
+<p><img src="[Image URL, e.g. https://storage.googleapis.com/...]" alt="Evidence Image" /></p>
+<!-- For Non-Image Attachments (Logs, Test Reports) / External URLs (Jam, Loom): Use anchor link -->
+<p><a href="[Evidence URL, e.g. Jam / Loom / Log URL]" rel="noopener noreferrer" target="_blank">[Evidence Filename / Link]</a></p>
 <p></p>
 ```
 
