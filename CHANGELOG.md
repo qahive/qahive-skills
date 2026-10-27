@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-27
+
+### Added
+- **`using-stingerflow-mcp`**: Added signed upload URL generation and artifact attachment workflows.
+  - Integration with `generating_upload_url` MCP tool for uploading evidence assets directly to Google Cloud Storage (GCS).
+  - Shell (`upload-to-gcs.sh`) and PowerShell (`Upload-ToGcs.ps1`) upload scripts and curl commands for direct HTTP PUT uploads.
+  - Defect HTML template and guidelines for embedding uploaded images (`<img>`) and non-image evidence attachments (`<a>`).
+
 ## [0.2.0] - 2026-10-27
 
 ### Added
